@@ -63,4 +63,45 @@ vending_machine(3000)
 함수 이름 : multiply
 매개변수 : 정수 n
 리턴값 : 없음
+
+함수 호출 :
+multiply(dan)       #argument가 dan
+
+실행 예
+몇 단을 출력하시겠습니까? >>> 3
+3 x 1 = 3
+
+...
+3 x 9 = 27
 '''
+
+def multiply(dan):
+    for i in range(1, 10):
+        print(f'{dan} x {i} = {dan * i}')
+
+dan = int(input('몇 단을 출력하시겠습니까? >>> '))
+multiply(dan)
+
+'''
+range() 함수의 parameter  적용 순서
+1 개만 있을 때 : 한계값
+2 개 있을 때 : 시작값, 한계값
+3 개 있을 때 : 시작값, 한계값, 증감값 순서입니다.
+
+그럼 현재 multiply를 call2() 유형으로 정의했다고 볼 수 있겠습니다.
+
+call1() 유형으로 정의했을 때
+
+실행 예
+몇 단을 출력하시겠습니까? >>> 5
+5 x 1 = 5
+...
+5 x 9 = 45
+로 나올 수 있도록 작성하시오.
+'''
+def multiply2():
+    num = int(input('몇 단을 출력하시겠습니까? >>> '))
+    for i in range(1, 10):
+        print(f'{num} x {i} = {num * i}')
+
+multiply2()
