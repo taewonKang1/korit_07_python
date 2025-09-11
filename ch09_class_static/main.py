@@ -205,6 +205,12 @@ print(f'매출 : {Shop.get_total()}원')
 class Shop:
     total = 0
     menu_list = [{ '떡볶이': 3000 }, { '순대': 4000 }, { '튀김': 500 }, { '김밥': 2000 }]
+    menu_dict = {
+        '떡볶이': 3000,
+        '순대': 4000,
+        '튀김': 500,
+        '김밥': 2000,
+    }
 
     @classmethod
     def get_total(cls):
