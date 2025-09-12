@@ -347,56 +347,104 @@ ScoreOutOfRangeError 클래스를 정의해서 사용하겠습니다.
 5. 예외가 발생하지 않은 경우 정상적으로 처리되었습니다 라는 메시지와 속성값을 출력한 다.
 6. 프로그램 종료 메시지를 출력한다.
 '''
-class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-# 객체 생성
-person1 = Person(name='김일', age=21)
-print(vars(person1)) # vars(객체명) : 객체의 속성명 - 값을 dictionary로 만들어줍니다. JSON이 생각나죠.
-print(getattr(person1, 'age'))
-# getattr()의 두 번째 argument는 인스턴스 변수명을 받습니다. -> 그 데이터를 str으로 받습니다.
-print(getattr(person1, 'name'))     #결과값 : 김일
-
-try:
-    attr_name = input('출력할 속성명을 입력하세요 >>> ')
-    attr_value = getattr(person1, attr_name)
-except AttributeError:
-    print('존재하지 않는 속성입니다.')
-except Exception as e:
-    print('예상치 못한 오류가 발생했습니다')
-    print(e)
-else:
-    print("정상적으로 처리되었습니다.")
-    print(f"{attr_name} = {attr_value}")
-finally:
-    print("프로그램이 종료되었습니다.")
-
-person1_dict = vars(person1)
+# class Person:
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+#
+# # 객체 생성
+# person1 = Person(name='김일', age=21)
+# print(vars(person1)) # vars(객체명) : 객체의 속성명 - 값을 dictionary로 만들어줍니다. JSON이 생각나죠.
+# print(getattr(person1, 'age'))
+# # getattr()의 두 번째 argument는 인스턴스 변수명을 받습니다. -> 그 데이터를 str으로 받습니다.
+# print(getattr(person1, 'name'))     #결과값 : 김일
+#
+# try:
+#     attr_name = input('출력할 속성명을 입력하세요 >>> ')
+#     attr_value = getattr(person1, attr_name)
+# except AttributeError:
+#     print('존재하지 않는 속성입니다.')
+# except Exception as e:
+#     print('예상치 못한 오류가 발생했습니다')
+#     print(e)
+# else:
+#     print("정상적으로 처리되었습니다.")
+#     print(f"{attr_name} = {attr_value}")
+# finally:
+#     print("프로그램이 종료되었습니다.")
+#
+# person1_dict = vars(person1)
 '''
 getattr(객체명, 속성명_str)  - 특정 객체의 두번째 argument와 일치하는 속성명의 값을 return
 vars(객체명) - 특정 객체의 속성명-속성값 쌍을 dictionary 형태의 key-value 쌍으로 변환
 '''
-print(person1_dict)
-attr_key = input('출력할 속성명을 입력하세요 >>> ')
-print(person1_dict[attr_key])
+# print(person1_dict)
+# attr_key = input('출력할 속성명을 입력하세요 >>> ')
+# print(person1_dict[attr_key])
+#
+# class Person:
+#     def __init__(self, name):
+#         self.name = name
+#
+#     def eat(self, food):
+#         print(f'{self.name}이(가) {food}를 먹습니다.')
+#
+# class Student(Person):
+#
+#     def __init__(self, name, school):
+#         super().__init__(name, school)
+#         self.school = school
+#
+#     def studey(self):
+#         print(f'{self.name}은(는) {self.school}에서 공부를 합니다')
+#
+#     def eat(self, food):
+#         super().eat(food)
+#
 
-class Person:
-    def __init__(self, name):
-        self.name = name
+# 객체 생성
+# potter = Student('해리 포터', '호그와트')
+# potter.eat('감자')
+# potter.study()
+'''
+1. 서브 클래스의 __init__()
+    서브 클래스는 슈퍼 클래스가 없으면 존재할 수 없습니다. 그래서 서브 클래스의 생성자를 구현할 때는 '반드시 슈퍼 클래스의 생성자를 먼저 호출'하는 코드를 작성해야만 합니다.
+    
+    super(). 에서 super -> 슈퍼 클래스를 의미. 즉 이상의 코드에서 Student의 생성자를 호출하려면 super().__init__(name)에 의해서 슈퍼 클래스인 Person의 생성자가 먼저 호출되면 '슈퍼 클래스의 객체가 생성' 됩니다.
+    이후에 슈퍼 클래스에서 생성된 인스턴스 변수인 name이 서브 클래스로 전달되고, 이후에 서브 클래스에서 school 인스턴스 변수를 선언 및 초기화하여 저장하면서 서브 클래스의 인스턴스가 생성됩니다.
+    
+    : 생성자를 호출했다면 -> 객체가 생성되었다고 봐야하기 때문에 / 부모 클래스의 인스턴스와 자식 클래스의 인스턴스가 있다고 봐도 무방합니다. -> 그런데 별개의 객체냐고 물으면 그건 또 그럴 때도 있고 아닐 때도 있습니다.
+    
+2. 서브 클래스의 인스턴스 자료형
+    슈퍼 클래스의 객체는 슈퍼 클래스의 인스턴스
+    하지만 서브 클래스의 인스턴스는 서브 클래스의 인스턴스이면서 동시에 슈퍼 클래스의 인스턴스
+    Student 클래스의 객체는 Student의 인스턴스이면서 Person의 인스턴스
+    
+    Java를 기준으로 instaceof 연산자 역할을 하는 함수가 python에도 있는데 -> isinstance() : 다 소문자입니다.
+    
+    형식 :
+        isinstance(객체명, 클래스명)   -> boolean
+'''
+# print(isinstance(potter, Person))
+# print(isinstance(potter, Student))
+'''
+지지 사항
+1. 다음과 같은 슈퍼 클래스 Car를 가지고 있는 Hybrid 클래스를 구현하시오.
+2. 서브 클래스 Hybrid는 다음과 같은 특징을 지니고 있습니다.
+1) 최대 배터리 충전량은 30
+2) 배터리를 충전하는 Charge()
+메서드가 존재합니다. 최대 전량을 초과할 수 없고,
+0보다 작은 값으로 충전할 수 없습니다•
+3) 현재 조유량과 충전량을 모두 확인할 수 있는 hybrid info 메서드가 있습니다.
+3. 다음과 같은 방식으로 전체 동작을 확인할 수 있습니다•
+car = Hybrid(oil= 0, amount= 0)
+car.add_oi1 (100)
+car. charge (50)
+car hybrid_info()
 
-    def eat(self, food):
-        print(f'{self.name}이(가) {food}를 먹습니다.')
-
-class Student(Person):
-
-    def __init__(self, name, school):
-        super().__init__(name, school)
-        self.school = school
-
-    def studey(self):
-        print(f'{self.name}은(는) {self.school}에서 공부를 합니다')
-
-    def eat(self, food):
-        super().eat(food)
+하이브리드 차량이 생산되었습니다
+기름을 50 주유 했습ㄴ디ㅏ.
+전기를 30 충전 했습니다.
+현재 주유 상태 : 50
+현재 충전 상태 : 30
+'''
